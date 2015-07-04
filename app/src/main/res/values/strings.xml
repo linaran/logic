@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Logic</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Left drawer menu resource-->
+    <string-array name="left_drawer_menu">
+        <item>New</item>
+        <item>Save</item>
+        <item>Load</item>
+    </string-array>
+
+    <!--Basic menu resource-->
+    <string name="menu_new">New</string>
+    <string name="menu_generate">Generate</string>
+    <string name="menu_manual">Manual</string>
+
+    <!-- Generate dialog -->
+    <string name="generate_hint">Boolean expression</string>
+    <string name="dialog_generate_title">Generate scheme:</string>
+    <string name="dialog_generate_neutral_button">Store</string>
+    <!-- Generate dialog buttons -->
+    <string name="literal">A</string>
+    <string name="not_literal">~</string>
+    <string name="or">+</string>
+
+    <!--Basic new dialog-->
+    <string name="dialog_new_title">Set scheme properties:</string>
+    <string name="dialog_new_width">Scheme width:</string>
+    <string name="dialog_new_height">Scheme height:</string>
+    <string name="dialog_new_hint">measured in dp</string>
+
+    <!--Input output dialog-->
+    <string name="input_output_dialog_title">Component properties:</string>
+    <string name="input_count">Input count:</string>
+    <string name="output_count">Output count:</string>
+
+    <!--Buttons for scheme-->
+    <string name="edit_components_string">Edit</string>
+    <!--Tags for buttons for scheme-->
+    <string name="button_tag_delete">Delete_component</string>
+    <string name="button_tag_edit">Edit_component</string>
+
+    <string name="cancel">CANCEL</string>
+    <string name="ok">OK</string>
+</resources>

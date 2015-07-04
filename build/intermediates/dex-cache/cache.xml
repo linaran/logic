@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Deni\AndroidStudioProjects\Logic\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\Deni\AndroidStudioProjects\Logic\app\build\intermediates\pre-dexed\debug\classes-e05453d030d9ceddcb84ee85164b8fa0a3b3b18b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Deni\AndroidStudioProjects\Logic\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\Deni\AndroidStudioProjects\Logic\app\build\intermediates\pre-dexed\debug\classes-b95e2e1f7d7df348ebfac12ccd15eea54a1f237e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Deni\AndroidStudioProjects\Logic\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\Deni\AndroidStudioProjects\Logic\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-952982924b9cf5e7268088cf401f0ed7070f8a33.jar" />
+    </item>
+    <item
+        jar="C:\Users\Deni\AndroidStudioProjects\Logic\app\libs\QMCMinimizer.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="efb716ec8aa3360b648c6c0248a4938f5d7adce5">
+        <dex dex="C:\Users\Deni\AndroidStudioProjects\Logic\app\build\intermediates\pre-dexed\debug\QMCMinimizer-f798069f63e03fe96fbefea60abb079d44c0d977.jar" />
+    </item>
+    <item
+        jar="C:\Users\Deni\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\Deni\AndroidStudioProjects\Logic\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-2b7ffa8b442fcba7d6ba854647d6e58b2ecd5146.jar" />
+    </item>
+
+</items>

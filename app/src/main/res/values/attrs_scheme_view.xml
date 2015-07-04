@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="SchemeView">
+        <attr name="Width" format="integer"/>
+        <attr name="Height" format="integer"/>
+    </declare-styleable>
+</resources>
+<!--TODO:ERASE-->

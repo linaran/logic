@@ -10,12 +10,14 @@ import android.graphics.drawable.Drawable;
 import com.example.deni.globalUtility.Constants;
 import com.example.deni.logicViewScheme.SchemeContext;
 
+import java.io.Serializable;
+
 /**
  *
  */
-public class DrawableIOGates extends Drawable {
+public class DrawableIOGates extends Drawable implements Serializable {
 
-    private Context mContext;
+    private transient Context mContext;
 
     private int mInputNumber;
     private int mOutputNumber;
@@ -68,5 +70,16 @@ public class DrawableIOGates extends Drawable {
     public void setGateNumbers(int inputNumber, int outputNumber){
         mInputNumber = inputNumber;
         mOutputNumber = outputNumber;
+    }
+
+    /**
+     * This method should be called after deserialization.
+     * @param context nuisance
+     */
+    public void rebuild (Context context) {
+        mContext = context;
+        mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mLinePaint.setColor(Color.BLACK);
+        mLinePaint.setStrokeWidth(2.5f);
     }
 }

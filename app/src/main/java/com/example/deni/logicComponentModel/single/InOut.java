@@ -4,6 +4,7 @@ import android.graphics.PointF;
 
 import com.example.deni.connect.Line;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.UUID;
@@ -11,7 +12,7 @@ import java.util.UUID;
 /**
  *
  */
-public class InOut extends Observable{
+public class InOut extends Observable implements Serializable{
 
     public enum GateType { Input, Output }
 

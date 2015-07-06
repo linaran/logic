@@ -34,7 +34,11 @@ import com.example.deni.logicComponentView.logicViewComponentsFactory.BasicCompo
 import java.util.ArrayList;
 
 /**
- * TODO: document your custom view class.
+ * SchemeView is a special layout manager for managing {@link BasicComponentView}.
+ * It represents the logic scheme itself. It's responsible for drawing anything and
+ * everything that a user should eventually see on screen when making a logic scheme.
+ * SchemeView is also responsible for scaling and translating the logic scheme.
+ * @see ViewGroup
  */
 public class SchemeView extends ViewGroup{
     /**OnLayout optimization*/
@@ -256,16 +260,32 @@ public class SchemeView extends ViewGroup{
         canvas.restore();
     }
 
+    /**
+     * This is a method that should be used when removing an {@link BasicComponentView}
+     * from the {@link SchemeView}. Method makes sure the component is removed from the {@link SchemeView}
+     * and some other data structures in {@link Connect}.
+     * @param view any {@link BasicComponentView}.
+     * @see Connect
+     */
     public void completeRemoveView(BasicComponentView view){
-        removeView(view);
         ArrayList<BasicComponentView> components = Connect.getInstance().getComponentViews();
         components.remove(view);
+        removeView(view);
+        Log.d("UNLOCK", components.size() + " removeView");
     }
 
+    /**
+     * This is a method that should be used when adding an {@link BasicComponentView}
+     * to the {@link SchemeView}. Method makes sure the component is added to the {@link SchemeView}
+     * and some other data structures in {@link Connect}.
+     * @param view any {@link BasicComponentView}.
+     * @see Connect
+     */
     public void completeAddView(BasicComponentView view){
-        addView(view);
         ArrayList<BasicComponentView> components = Connect.getInstance().getComponentViews();
         components.add(view);
+        addView(view);
+        Log.d("UNLOCK", components.size() + " addView");
     }
 
     private void rectSetter(PointF position, BasicComponentModel model, float offset, Rect givenRect){

@@ -12,6 +12,7 @@ import com.example.deni.connect.aStar.AStar;
 import com.example.deni.globalUtility.Constants;
 import com.example.deni.logicComponentModel.single.InOut;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,7 +21,7 @@ import java.util.Set;
 /**
  *
  */
-public class Line implements Observer {
+public class Line implements Observer, Serializable{
     private InOut mOutputInOut;
     private InOut mInputInOut;
     private ArrayList<PointF> mLinePath;

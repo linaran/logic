@@ -52,6 +52,8 @@ public class SchemeFragment extends Fragment {
     }
 
     /**String constants*/
+//    public static final String COMPONENTS =
+//            "com.example.deni.logic.SchemeFragment.Components";
     public static final String NET_LIST =
             "com.example.deni.logic.SchemeFragment.netList";
     public static final String EXTRA_SCHEME_DIM_X =
@@ -79,6 +81,8 @@ public class SchemeFragment extends Fragment {
 
     /**Net list*/
     private ArrayList<String> mNetList;
+
+    SchemeView mSchemeView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -155,24 +159,25 @@ public class SchemeFragment extends Fragment {
 
         });
 
-        SchemeView schemeView = ((SchemeView) v.findViewById(R.id.scheme_view));
-//        ANDView first = new ANDView(new ANDModel(getActivity(), new PointF(0, 0)));
-//        ANDView second = new ANDView(new ANDModel(getActivity(), new PointF(20 * offset, 0)));
-//        schemeView.completeAddView(first);
-//        schemeView.completeAddView(second);
-//        Connect.getInstance().connectComponents(
-//                first.getComponent().getOutputGate(0),
-//                second.getComponent().getInputGate(0)
-//        );
-        if (mNetList != null){
-            Log.d("wazoo", mNetList.toString());
-            generator(schemeView);
+        mSchemeView = ((SchemeView) v.findViewById(R.id.scheme_view));
+        ArrayList<BasicComponentView> childViews = Connect.getInstance().getComponentViews();
+        if (childViews.size() != 0) {
+            Log.d("UNLOCK", Connect.getInstance().getComponentViews().size() + " onCreateView");
+            for (BasicComponentView view : childViews) {
+//                try{
+//                    schemeView.addView(view);
+//                    Log.d("UNLOCK", "Restoring.");
+//                } catch (IllegalStateException e){
+//                    Log.d("UNLOCK", "Exception in restoring.");
+//                    break;
+//                }
+                mSchemeView.addView(view);
+            }
         }
-
-//        ViewGroup.LayoutParams lpSV = schemeView.getLayoutParams();
-//        lpSV.height = (int)SchemeContext.height;
-//        lpSV.width = (int)SchemeContext.width;
-//        schemeView.setLayoutParams(lpSV);
+        if (mNetList != null){
+//            Log.d("wazoo", mNetList.toString());
+            generator(mSchemeView);
+        }
 
         return v;
     }
@@ -196,14 +201,14 @@ public class SchemeFragment extends Fragment {
                 continue;
             }
             switch (mode){
-                case 1:
+                case 1: //IN layer.
                     if (line.equals("")) { break; }
                     INView in = new INView(new INModel(getActivity(), new PointF(xPosition, yPosition)));
                     schemeView.completeAddView(in);
                     inputs.add(in);
                     yPosition += in.getComponent().getHeight() + 2 * offset;
                     break;
-                case 2:
+                case 2: //NOT layer.
                     if (line.equals("")) {
                         Log.d("wazoo", "brokenNOT");
                         xPosition -= 20 * offset;
@@ -216,7 +221,7 @@ public class SchemeFragment extends Fragment {
                     connector(inputs.get(inputIndex), not, 0);
                     yPosition += not.getComponent().getHeight() + 2 * offset;
                     break;
-                case 3:
+                case 3: //AND layer.
                     if (line.equals("")) { Log.d("wazoo", "brokenAND"); break; }
                     String[] parts = line.split("\t");
                     if (parts.length == 2) {
@@ -238,6 +243,7 @@ public class SchemeFragment extends Fragment {
                     for (int i = 0; i < parts.length - 1; i++){
                         int index;
                         input++;
+                        Log.d("INPUTCOUNT", input + "");
                         and.setGateCount(input + 1, 1);
                         if (parts[i].charAt(0) == 'n'){
                             index = charToInt(parts[i].charAt(1));
@@ -249,7 +255,7 @@ public class SchemeFragment extends Fragment {
                     }
                     yPosition += and.getComponent().getHeight() + 2 * offset;
                     break;
-                case 4:
+                case 4: //OR layer.
                     if (line.equals("")) { Log.d("wazoo", "brokenOR"); break; }
                     parts = line.split("\t");
                     ORView or = new ORView(new ORModel(getActivity(), new PointF(xPosition, yPosition)));
@@ -266,6 +272,7 @@ public class SchemeFragment extends Fragment {
                     break;
             }
         }
+//        OUT layer
         xPosition += 6 * offset;
         yPosition = 5 * offset;
         for (BasicComponentView gate : orGates){
@@ -288,9 +295,11 @@ public class SchemeFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        Connect.getInstance().wipe();
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("UNLOCK", "onDestroyView()");
+        Connect.getInstance().clearSelection();
+        mSchemeView.removeAllViews();
     }
 
     /**

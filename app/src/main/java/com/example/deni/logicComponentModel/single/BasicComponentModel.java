@@ -9,6 +9,7 @@ import com.example.deni.connect.Connect;
 import com.example.deni.connect.Line;
 import com.example.deni.globalUtility.Constants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -17,13 +18,13 @@ import java.util.ArrayList;
  * Warning: every class implementing this abstract model MUST offer a constructor with
  * and without component position.
  */
-public abstract class BasicComponentModel{
-    protected Context mContext;
+public abstract class BasicComponentModel implements Serializable{
+    protected transient Context mContext;
 
     protected int mWidth;
     protected int mHeight;
 
-    protected PointF mPosition;
+    protected transient PointF mPosition;
 
     protected int mInputGateCount;
     protected int mOutputGateCount;
@@ -38,7 +39,7 @@ public abstract class BasicComponentModel{
 
     /**
      * Constructor without position for manual schematic creation.
-     * @param context
+     * @param context - nuisance
      */
     public BasicComponentModel(Context context, Point inputLimiters, Point outputLimiters){
         init(context, inputLimiters, outputLimiters);
@@ -277,5 +278,10 @@ public abstract class BasicComponentModel{
 
     public Context getContext() {
         return mContext;
+    }
+
+    public void rebuild(Context context) {
+        mContext = context;
+
     }
 }

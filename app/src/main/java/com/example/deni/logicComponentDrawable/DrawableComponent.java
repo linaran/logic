@@ -6,22 +6,24 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
+import java.io.Serializable;
+
 /**
  *  Abstract method for visual representation of basic components for SchemeView.
  *  Any method extending this class should this draw method before continuing with
  *  its own. Super draw method draws IOGates so subclasses are free to draw whatever they
  *  want regarding the component itself.
  */
-public abstract class DrawableComponent extends Drawable{
+public abstract class DrawableComponent extends Drawable implements Serializable{
 
-    protected Context mContext;
+    protected transient Context mContext;
 
     protected String mComponentName;
 
-    protected Paint mTextPaint;
-    protected Paint mPaint;
+    protected transient Paint mTextPaint;
+    protected transient Paint mPaint;
 
-    protected Rect mDrawingBounds;
+    protected transient Rect mDrawingBounds;
 
     protected DrawableIOGates mGateDrawer;
 
@@ -49,5 +51,16 @@ public abstract class DrawableComponent extends Drawable{
 
     public void setInputOutputGateNumbers(int inputNumber, int outputNumber){
         mGateDrawer.setGateNumbers(inputNumber, outputNumber);
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+
+    public void rebuild(Context context) {
+        mContext = context;
+        mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mDrawingBounds = new Rect();
     }
 }

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.deni.connect.Connect;
+
 /**
  * Fragment that handles basic menu.
  */
@@ -41,6 +43,8 @@ public class MenuFragment extends Fragment {
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                TODO: Repair this fail.
+                if (!Connect.isNull()) { Connect.getInstance().wipe(); }
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 NewSchemeDialog dialog = new NewSchemeDialog();
                 dialog.show(fm, DIALOG_NEW);
@@ -51,6 +55,7 @@ public class MenuFragment extends Fragment {
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!Connect.isNull()) { Connect.getInstance().wipe(); }
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DialogFragment dialog = new GenerateDialog();
                 dialog.show(fm, DIALOG_GENERATE);

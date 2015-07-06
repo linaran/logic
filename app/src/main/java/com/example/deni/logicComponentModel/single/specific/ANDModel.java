@@ -9,6 +9,8 @@ import com.example.deni.globalUtility.Constants;
 import com.example.deni.logicComponentModel.single.BasicComponentModel;
 import com.example.deni.logicComponentModel.single.InOut;
 
+import java.io.Serializable;
+
 /**
  * Model for basic component AND.
  * AND outputs AND operations on all input gate values.

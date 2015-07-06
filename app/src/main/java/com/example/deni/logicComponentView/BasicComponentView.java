@@ -30,12 +30,13 @@ import com.example.deni.logicComponentView.logicViewComponentsFactory.BasicCompo
 import com.example.deni.logicViewScheme.SchemeContext;
 import com.example.deni.logicViewScheme.SchemeView;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  *
  */
-public abstract class BasicComponentView extends View{
+public abstract class BasicComponentView extends View implements Serializable{
     protected DrawableComponent mComponentDrawable;
     protected BasicComponentModel mComponent;
     protected UUID mId;
@@ -69,6 +70,8 @@ public abstract class BasicComponentView extends View{
         mGestureDetector = new GestureDetector(getContext(), new MyGestureListener());
         setWillNotDraw(false);
     }
+
+//    TODO: Method for deserialization required.
 
     /**
      * Views method that parents call in order to calculate its dimensions.

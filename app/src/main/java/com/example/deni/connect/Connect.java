@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.example.deni.logicComponentModel.single.InOut;
 import com.example.deni.logicComponentView.BasicComponentView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ import java.util.Set;
  * Singleton class responsible for managing line connections on SchemeView.
  * Bad design to avoid serialization parcelables and speed up development.
  */
-public class Connect {
+public class Connect implements Serializable{
 
     private ArrayList<BasicComponentView> mComponents;
 
@@ -29,6 +30,9 @@ public class Connect {
             Connect.instance = new Connect();
         }
         return Connect.instance;
+    }
+    public static Boolean isNull() {
+        return Connect.instance == null;
     }
     private Connect(){
         mComponents = new ArrayList<>();

@@ -12,6 +12,7 @@ import android.text.Spanned;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.deni.globalUtility.Constants;
 
@@ -20,7 +21,9 @@ import java.util.ArrayList;
 import hr.fer.zemris.bool.fimpl.util.FunctionContext;
 
 /**
- *
+ * Dialog takes Boolean expressions as input. After each Boolean expression
+ * user clicks button "store" which stores the Boolean expression. Upon clicking
+ * "OK" a logic scheme is generated based on inputted Boolean expressions.
  */
 public class GenerateDialog extends DialogFragment{
 
@@ -69,7 +72,16 @@ public class GenerateDialog extends DialogFragment{
             public void onClick(View v) {
                 String text = mEditText.getText().toString();
                 if (text.equals("")){ return; }
-                FunctionContext.getInstance().createFromString(text);
+                try{
+                    FunctionContext.getInstance().createFromString(text);
+                } catch (IllegalArgumentException e) {
+                    Toast toast = Toast.makeText(
+                            getActivity().getBaseContext(),
+                            "Illegal expression.",
+                            Toast.LENGTH_SHORT
+                    );
+                    toast.show();
+                }
                 mEditText.setText("");
             }
         });
@@ -80,8 +92,12 @@ public class GenerateDialog extends DialogFragment{
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        Get values from something and make list of enums.
-                        ArrayList<String> netList = ((ArrayList<String>) FunctionContext.getInstance().generateMinimizedNetList());
+                        ArrayList<String> netList = null;
+                        try {
+                            netList = ((ArrayList<String>) FunctionContext.getInstance().generateMinimizedNetList());
+                        } catch (IndexOutOfBoundsException e) {
+                            dismiss();
+                        }
 
                         Intent i = new Intent(getActivity(), SchemeActivity.class);
                         float dimension = Constants.MAX_SCHEME_N.getValue() * Constants.SCHEME_OFFSET.getDPValue(getActivity());

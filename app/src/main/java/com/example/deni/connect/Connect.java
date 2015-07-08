@@ -31,6 +31,12 @@ public class Connect implements Serializable{
         }
         return Connect.instance;
     }
+
+    /**
+     * Method peeks and tells if this singleton has an instance.
+     * Method is used for maintenance is activity life cycles.
+     * @return true if the instance is null, false otherwise.
+     */
     public static Boolean isNull() {
         return Connect.instance == null;
     }
@@ -66,10 +72,11 @@ public class Connect implements Serializable{
     }
 
     /**
-     * This method should be called only with existing gates.
-     * Never create a new gate inside this method!
-     * @param selectedInputInOut
-     * @param selectedOutputInOut
+     * Method connects two {@link InOut} objects. Graphically and logically.
+     * This method should be called with existing {@link InOut} objects that are contained
+     * inside their respective {@link com.example.deni.logicComponentModel.single.BasicComponentModel}.
+     * @param selectedInputInOut input.
+     * @param selectedOutputInOut output.
      */
     public void connectComponents(InOut selectedOutputInOut, InOut selectedInputInOut){
         if (selectedInputInOut.countObservers() != 0){
@@ -112,6 +119,9 @@ public class Connect implements Serializable{
         ((View)mComponents.get(0).getParent()).invalidate();
     }
 
+    /**
+     * Method clears out input and output values for connecting utility.
+     */
     public void clearSelection(){
         mSelectedInputInOut = null;
         mSelectedOutputInOut = null;

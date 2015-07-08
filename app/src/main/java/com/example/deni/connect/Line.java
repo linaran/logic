@@ -32,8 +32,10 @@ public class Line implements Observer, Serializable{
     private AStar mAStar;
 
     /**For looping lines*/
-    private boolean mIsLooping;
-    private boolean mIsUsed;
+    private int mLoopGuard;
+    private Boolean mLoopCheck;
+    private Boolean mIsLooping;
+//    private boolean mIsUsed;
 
     public enum Task{ Remove, AStar , UpdateValue }
 
@@ -50,16 +52,16 @@ public class Line implements Observer, Serializable{
         mOutputInOut.addObserver(this);
         mInputInOut.addObserver(this);
 
-        if (mOutputInOut.getComponentModel().equals(mInputInOut.getComponentModel())) {
-            mIsLooping = true;
-            mIsUsed = false;
-        }
+        mLoopGuard = 0;
+        mLoopCheck = true;
+        mIsLooping = false;
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.BLACK);
 
 //        Newborn line takes value from output gate and sends it to input gate.
         mInputInOut.setValue(mOutputInOut.getValue());
+        mLoopCheck = false;
     }
 
     /**
@@ -123,11 +125,20 @@ public class Line implements Observer, Serializable{
                 }
                 break;
             case UpdateValue:
-                if (mIsLooping && mIsUsed) {
-                    mIsUsed = false;
-                    break;
-                } else {
-                    mIsUsed = true;
+                if (mLoopCheck) {
+                    if (mLoopGuard != 0){
+                        mIsLooping = true;
+                        mLoopGuard = 0;
+                        break;
+                    }
+                    mLoopGuard++;
+                }
+                if (mIsLooping) {
+                    if (mLoopGuard != 0) {
+                        mLoopGuard = 0;
+                        break;
+                    }
+                    mLoopGuard++;
                 }
                 mInputInOut.setValue(mOutputInOut.getValue());
                 break;

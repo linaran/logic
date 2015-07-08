@@ -164,18 +164,11 @@ public class SchemeFragment extends Fragment {
         if (childViews.size() != 0) {
             Log.d("UNLOCK", Connect.getInstance().getComponentViews().size() + " onCreateView");
             for (BasicComponentView view : childViews) {
-//                try{
-//                    schemeView.addView(view);
-//                    Log.d("UNLOCK", "Restoring.");
-//                } catch (IllegalStateException e){
-//                    Log.d("UNLOCK", "Exception in restoring.");
-//                    break;
-//                }
                 mSchemeView.addView(view);
             }
         }
         if (mNetList != null){
-//            Log.d("wazoo", mNetList.toString());
+            Log.d("wazoo", mNetList.toString());
             generator(mSchemeView);
         }
 
@@ -194,7 +187,7 @@ public class SchemeFragment extends Fragment {
         float yPosition = 5 * offset;
 
         for(String line : mNetList){
-            if (line.matches("^[vnao](.*)")){
+            if (line.matches("^[vnao]\\D(.*)")){
                 mode++;
                 yPosition = 5 * offset;
                 xPosition += 20 * offset;
@@ -211,7 +204,6 @@ public class SchemeFragment extends Fragment {
                 case 2: //NOT layer.
                     if (line.equals("")) {
                         Log.d("wazoo", "brokenNOT");
-                        xPosition -= 20 * offset;
                         break;
                     }
                     NOTView not = new NOTView(new NOTModel(getActivity(), new PointF(xPosition, yPosition)));
@@ -242,9 +234,9 @@ public class SchemeFragment extends Fragment {
                     int input = -1;
                     for (int i = 0; i < parts.length - 1; i++){
                         int index;
-                        input++;
-                        Log.d("INPUTCOUNT", input + "");
-                        and.setGateCount(input + 1, 1);
+                        input += 1;
+                        Log.d("wazoo", input + "");
+                        if (input + 1 > 2) { and.setGateCount(input + 1, 1); }
                         if (parts[i].charAt(0) == 'n'){
                             index = charToInt(parts[i].charAt(1));
                             connector(notGates.get(index), and, input);
@@ -264,7 +256,7 @@ public class SchemeFragment extends Fragment {
                     input = -1;
                     for (int i = 0; i < parts.length - 1; i++){
                         input++;
-                        or.setGateCount(input + 1, 1);
+                        if (input + 1 > 2) { or.setGateCount(input + 1, 1); }
                         int index = charToInt(parts[i].charAt(0));
                         connector(andGates.get(index), or, input);
                     }

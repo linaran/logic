@@ -15,7 +15,8 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 /**
- *
+ * Algorithm for calculating a path for each {@link Line}.
+ * Still under construction and heavy maintenance.
  */
 public class AStar {
 
@@ -68,6 +69,14 @@ public class AStar {
         return false;
     }
 
+    /**
+     * Method takes two {@link PointF} objects and returns a {@link String}
+     * symbolizing the direction that was taken from point to another.
+     * Directions are xR, xL, yD, yU. R is right, L is left, D is down, U is up.
+     * @param oldP beginning point in the path segment.
+     * @param newP ending point in the path segment.
+     * @return String.
+     */
     private String checkDirection(PointF oldP, PointF newP){
         if(newP.x - oldP.x > 0){
             return "xR";
@@ -107,6 +116,7 @@ public class AStar {
             if(oldDirection.charAt(1) != newDirection.charAt(1)) { return 5*mOffset; }
             else { return mOffset; }
         } else {
+//            if (currentNode.getHeuristic() < 5 * mOffset) { return 5 * mOffset; }
             return mOffset;
         }
     }
@@ -182,6 +192,16 @@ public class AStar {
         );
     }
 
+    /**
+     * Helper method that used by {@link #expand(Node)}. This method checks all the
+     * properties for an expansion stored in offset parameter. Properties are the cost,
+     * heuristics, legality and etc. for the next possible {@link Node} in {@link #expand(Node)}
+     * method.
+     * @param currentNode current position in the AStar algorithm from which algorithm is expanding.
+     * @param offset Stores the direction of the expansion. Next position is found at the currentPosition + offset.
+     * @param expandList An expand list needs to be given which will be filled with legal Nodes. There are no
+     *                   return values because this method sometimes may choose not to fill the expandList.
+     */
     private void nextPosition(Node currentNode, PointF offset, ArrayList<Node> expandList){
         PointF newPosition = new PointF(
                 currentNode.getPosition().x + offset.x,
@@ -248,6 +268,12 @@ public class AStar {
 //        No overlapping lines and circle setter.
     }
 
+    /**
+     * Essential part of AStar algorithm. This method expands current {@link Node} to gain access
+     * to other possible nodes.
+     * @param currentNode current {@link Node}.
+     * @return ArrayList of {@link Node}.
+     */
     private ArrayList<Node> expand(Node currentNode){
         ArrayList<Node> retValue = new ArrayList<>();
 
@@ -270,6 +296,12 @@ public class AStar {
         return retValue;
     }
 
+    /**
+     * Helper method for {@link #aStarSearch(PointF, PointF)} finds and returns possible
+     * duplicates of given parameter in open and closed list of AStar algorithm.
+     * @param currentNode current {@link Node}.
+     * @return duplicate {@link Node}
+     */
     private Node findOldDuplicate(Node currentNode){
         for (Node node : mOpen){
             if (node.getPosition().equals(currentNode.getPosition())){
@@ -284,6 +316,12 @@ public class AStar {
         return null;
     }
 
+    /**
+     * After {@link #aStarSearch(PointF, PointF)} is finished, this method calculates
+     * a path from the parents of the {@link Node} that reached the goal.
+     * @param finalNode {@link Node}
+     * @return ArrayList of {@link Node}
+     */
     private ArrayList<PointF> getPathFromSolution(Node finalNode){
         ArrayList<PointF> list = new ArrayList<>();
         Node node = finalNode;
@@ -302,11 +340,22 @@ public class AStar {
         return list;
     }
 
+    /**
+     * This method is used to avoid memory leaks. Method cleans open and closed
+     * list for this object of AStar algorithm.
+     */
     private void wipe(){
         mOpen = null;
         mClose = null;
     }
 
+    /**
+     * Helper constructor method used for initiating values.
+     * @param start starting point of the algorithm.
+     * @param end ending point of the algorithm.
+     * @param isInsideLine boolean value which tells is this current line being
+     *                     calculated inside an another already existing line.
+     */
     private void init(PointF start, PointF end, boolean isInsideLine){
         mStart = start;
         mEnd = end;

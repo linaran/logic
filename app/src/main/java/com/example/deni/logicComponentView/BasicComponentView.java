@@ -171,6 +171,7 @@ public abstract class BasicComponentView extends View implements Serializable{
                 outputGateCount
         );
         requestLayout();
+        invalidate();
     }
 
     private class MyGestureListener implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener{

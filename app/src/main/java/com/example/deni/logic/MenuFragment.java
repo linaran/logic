@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import com.example.deni.connect.Connect;
 
+import hr.fer.zemris.bool.fimpl.util.FunctionContext;
+
 /**
  * Fragment that handles basic menu.
  */
@@ -55,7 +57,9 @@ public class MenuFragment extends Fragment {
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                TODO: Repair this fail.
                 if (!Connect.isNull()) { Connect.getInstance().wipe(); }
+                FunctionContext.getInstance().reset();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DialogFragment dialog = new GenerateDialog();
                 dialog.show(fm, DIALOG_GENERATE);

@@ -3,7 +3,8 @@ package com.example.deni.connect.aStar;
 import android.graphics.PointF;
 
 /**
- *
+ * This is a data structure used by {@link AStar} algorithm.
+ * Data structure holds cost, heuristics, parent, position and possible circle position.
  */
 public class Node {
 
@@ -14,6 +15,15 @@ public class Node {
     private float mHeuristic;
     private Node mParent;
 
+    /**
+     * Constructor creates an instance of {@link Node}.
+     * @param position {@link PointF} position of the node.
+     * @param circle {@link PointF} position of circle that should be drawn.
+     * @param isInsideMainLine boolean, is the given node contained inside another line.
+     * @param cost real cost for the node.
+     * @param heuristic heuristics for the node.
+     * @param parent parent of the node, it can be null.
+     */
     public Node(PointF position, PointF circle, boolean isInsideMainLine, float cost, float heuristic, Node parent){
         mPosition = position;
         mCircle = circle;

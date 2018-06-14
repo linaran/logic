@@ -107,6 +107,7 @@ public class SchemeView extends ViewGroup{
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         mEditButtons = (LinearLayout) findViewById(R.id.edit_component_layout);
     }
 
